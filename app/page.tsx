@@ -3,6 +3,7 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-background">
+      <span className="text-5xl mb-2" role="img" aria-label="cassette tape">📼</span>
       <h1 className="text-4xl font-bold tracking-tight text-blush mb-3">
         pod-tape
       </h1>

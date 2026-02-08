@@ -50,8 +50,8 @@ const TAG_PROMPTS: Record<string, string> = {
 export const DISCOVERY_TAGS: DiscoveryTag[] = [
   { id: "boost-dopamine",        label: "boost dopamine",        emoji: "🧃",  query: TAG_PROMPTS["boost-dopamine"]},
   { id: "make-me-laugh",         label: "make me laugh",         emoji: "😂",  query: TAG_PROMPTS["make-me-laugh"]},
-  { id: "brain-food",            label: "brain food",            emoji: "🧠",  query: TAG_PROMPTS["brain-food"]},
-  { id: "main-character-energy", label: "main character energy", emoji: "💪",  query: TAG_PROMPTS["main-character-energy"]},
+  { id: "brain-food",            label: "brain food",            emoji: "🪩",  query: TAG_PROMPTS["brain-food"]},
+  { id: "main-character-energy", label: "main character energy", emoji: "⭐",  query: TAG_PROMPTS["main-character-energy"]},
   { id: "strolling-around",      label: "strolling around",      emoji: "🚶",  query: TAG_PROMPTS["strolling-around"]},
   { id: "girl-talk",             label: "girl talk",             emoji: "👭",  query: TAG_PROMPTS["girl-talk"]},
   { id: "mealtime-watch",        label: "mealtime watch",        emoji: "🍽️",  query: TAG_PROMPTS["mealtime-watch"]},
