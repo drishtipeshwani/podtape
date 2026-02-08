@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-plum-dark: #6B3F69;
+  --color-plum-mid: #8D5F8C;
+  --color-plum-light: #A376A2;
+  --color-blush: #DDC3C3;
+
+  --color-background: #6B3F69;
+  --color-foreground: #DDC3C3;
+
+  --font-sans: var(--font-geist-sans);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
