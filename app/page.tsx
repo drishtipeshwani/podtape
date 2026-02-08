@@ -8,7 +8,7 @@ export default function HomePage() {
         pod-tape
       </h1>
       <p className="text-lg text-plum-light max-w-md mb-8">
-        Pick a mood. Get episode recommendations that match exactly how you feel
+        Pick a vibe. Get episode recommendations that match exactly how you feel
         right now.
       </p>
       <Link

@@ -31,7 +31,7 @@ const TAG_PROMPTS: Record<string, string> = {
     "Recommend episodes about sports, comedy/entertainment genre, travel, history.",
 
   "quick-listen":
-    "Recommend short episode types about life hacks or productivity tips or quick news or how-tos, or motivational bites.",
+    "Recommend short 15-20 minute episode types about life hacks or productivity tips or quick news or how-tos, or motivational bites.",
 
   "finance-101":
     "Recommend episodes about personal finance — budgeting, investing basics, saving money, mindful spending, financial planning, or business strategies.",

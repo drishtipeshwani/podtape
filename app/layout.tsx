@@ -8,7 +8,7 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "pod-ape",
+  title: "pod-tape",
   description: "Discover podcast episodes for your vibe powered by Algolia Agent Studio.",
 };
 

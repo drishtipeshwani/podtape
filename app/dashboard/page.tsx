@@ -170,7 +170,6 @@ export default function DashboardPage() {
         )}
 
         {!loading && episodes.length > 0 && (() => {
-          /* Split episodes: first 3 in row 1, remaining in row 2 (centered) */
           const firstRow = episodes.slice(0, 3);
           const secondRow = episodes.slice(3);
 
@@ -190,16 +189,6 @@ export default function DashboardPage() {
                 <p className="text-xs text-plum-light truncate">{ep.showName}</p>
                 {ep.duration && (
                   <p className="text-xs text-plum-light/80">{ep.duration}</p>
-                )}
-                {ep.link && (
-                  <a
-                    href={ep.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1 text-xs font-medium text-blush underline hover:no-underline"
-                  >
-                    Listen Now
-                  </a>
                 )}
               </div>
             </li>
