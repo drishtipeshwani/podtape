@@ -1,48 +1,73 @@
-# Discover Podcasts
+# Pod-tape
 
-Episode-level podcast discovery by **mood** or **outcome**, powered by [Algolia Agent Studio](https://www.algolia.com/doc/guides/algolia-ai/agent-studio).
+Episode-level podcast discovery based on "vibe", powered by Algolia Agent Studio. This project indexes latest podcast episodes (episode-level records) across genres into an Algolia index and exposes a Next.js app that queries an Agent Studio agent for curated episode recommendations.
 
-- **Home** → **Dashboard** with two tabs: *By outcome* and *By mood*.
-- Pick a suggestion chip or type your own; get episode recommendations from your Algolia index via Agent Studio.
+## Quick local setup
 
-## Getting Started
+Prereqs:
+- Node.js (18+ recommended)
+- An Algolia account with Agent Studio access
 
-1. Copy `.env.example` to `.env.local` and set:
-   - `ALGOLIA_APPLICATION_ID` – Algolia application ID
-   - `ALGOLIA_API_KEY` – API key with Agent Studio access
-   - `ALGOLIA_AGENT_ID` – ID of your published agent (from [Agent Studio dashboard](https://dashboard.algolia.com/generativeAi/agent-studio/agents))
-2. In Agent Studio: create an agent, attach your **episode-level** Algolia index, choose an LLM, and publish.
-3. Populate the episodes index (e.g. from your own Spotify → Algolia pipeline).
+1) Clone and install
 
-Then run the development server:
+```bash
+npm install
+```
+
+2) Create Algolia resources
+
+- Create an Algolia application (you'll get an Application ID).
+- Get the Algolia API Key with WRTIE and SEARCH Access. 
+- Name your episodes index `podcast_index` (this is the index used by the included fetch script).
+
+3) Environment variables
+
+Create a `.env.local` file at the project root with these keys:
+
+- `ALGOLIA_APPLICATION_ID` — your Algolia Application ID
+- `ALGOLIA_SEARCH_API_KEY` — a search-only API key used by the app / Agent Studio
+- `ALGOLIA_AGENT_ID` — the Agent Studio agent ID you create and publish
+- `ALGOLIA_WRITE_API_KEY` — a write/admin API key used by the fetch script to push records
+
+Example `.env.local` (do not commit this file):
+
+```bash
+ALGOLIA_APPLICATION_ID=YourAppId
+ALGOLIA_SEARCH_API_KEY=searchKey...
+ALGOLIA_AGENT_ID=your-agent-id
+ALGOLIA_WRITE_API_KEY=writeKey...
+```
+
+4) Populate the Algolia index (fetch data)
+
+This repository includes `scripts/fetchData.ts` which:
+- queries the iTunes / Apple Podcasts search API for popular feeds based on the mentioned genre (eg - tech-news, relationships, sports, personal-journals, self-improvement, travel, etc)
+- parses the podcast RSS feeds (currently set to top 5 recent episodes per show)
+- writes episode-level records to the `podcast_index` Algolia index
+
+You can use the following command to run this script locally
+
+```bash
+npx tsx --env-file=.env.local scripts/fetchData.ts
+```
+
+The script will list discovered shows and prompt for confirmation before pushing records. The index name used by the script is `podcast_index`.
+
+5) Create and publish an Agent in Algolia Agent Studio
+
+- In the Agent Studio dashboard, create a new agent.
+- Attach the `podcast_index` to the agent as a searchable data source.
+- Choose an LLM / model (Agent Studio options) and publish the agent.
+- In the agent configuration, paste the system instructions (from `systeminstructions.md`) into the agent's system prompt so the agent knows how to select and return recommendations.
+
+6) Run the app
+
+Start the Next.js dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 and use the UI to select a vibe and get podcast episode recommendations; the app calls the local API which talks to your Agent Studio agent (make sure `ALGOLIA_APPLICATION_ID`, `ALGOLIA_SEARCH_API_KEY`, and `ALGOLIA_AGENT_ID` are set).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
